@@ -7,12 +7,13 @@
 
 
 ## 1. Install Dependecies
-```console
 # Update & Install Packages
+```console
 sudo apt update & sudo apt upgrade -y
 sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 -y
-
+```
 # Install Docker
+```console
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -20,20 +21,23 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker version
-
+```
 # Install Docker-Compose
+```console
 VER=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep tag_name | cut -d '"' -f 4)
 
 curl -L "https://github.com/docker/compose/releases/download/"$VER"/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
-
+```
 # Docker Permission to user
+```console
 sudo groupadd docker
 sudo usermod -aG docker $USER
-
+```
 # Install Go
+```console
 sudo rm -rf /usr/local/go
 curl -L https://go.dev/dl/go1.22.4.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
 echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile
@@ -45,41 +49,30 @@ go version
 ## 2. Install EigenLayer CLI
 ```console
 curl -sSfL https://raw.githubusercontent.com/layr-labs/eigenlayer-cli/master/scripts/install.sh | sh -s
-
 export PATH=$PATH:~/bin
-
 eigenlayer --version
 ```
 
 ## 3. Clone Chainbase AVS repo
 ```console
 git clone https://github.com/chainbase-labs/chainbase-avs-setup
-
 cd chainbase-avs-setup/holesky
 ```
 
 ## 4. Create Eigenlayer wallet
 ### Create a new Key
-
 1- Create operator address
 ```console
 eigenlayer operator keys create --key-type ecdsa opr
 ```
 2- Enter a password and press Enter
 * Best symbol for password is `*` , you can choose a password like this: `***123ABCabc123***`
-
 3- Save your wallet private key
-
 ![image](https://github.com/user-attachments/assets/2fb1071a-04fd-4ceb-9d08-9cd3de1c877a)
-
 4- `Ctrl+C+Enter+Enter` & save your wallet info
-
 ![image](https://github.com/user-attachments/assets/985845ab-9510-4afd-aa1b-76cca556094e)
-
 #
-
 ### Optional: Import an old key
-
 > Replace `PRIVATEKEY`
 ```console
 eigenlayer operator keys import --key-type ecdsa opr PRIVATEKEY
